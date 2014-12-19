@@ -7,18 +7,18 @@
     <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World, MyActivity"
+            android:text="MyActivity"
             />
     <Button
             android:layout_width="269dp"
             android:layout_height="wrap_content"
-            android:text="JustTest"
+            android:text="TestButton1"
             android:id="@+id/button"
             android:onClick="button1click"/>
     <Button
             android:layout_width="266dp"
             android:layout_height="wrap_content"
-            android:text="Wo!"
+            android:text="TestButton2"
             android:id="@+id/button2"/>
     <TextView
             android:layout_width="360dp"
