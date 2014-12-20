@@ -2,6 +2,7 @@ package com.HITech.Simplife;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class MyActivity extends Activity {
         button2=(Button)findViewById(R.id.button2);
         button2.setOnClickListener(new Mybuttonlistener() );
         mTextView = (TextView)findViewById(R.id.textView);
+        mTextView.setMovementMethod(new ScrollingMovementMethod());
         databaseTest = new DatabaseTest(this);
 
         mTextView.setText(databaseTest.Answer());
