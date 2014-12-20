@@ -16,6 +16,9 @@ public class DBManager {
     private DBHelper helper;
     private SQLiteDatabase db;
 
+    private static String sSelectAllInDB = "SELECT * FROM ";
+    private static String sWhereInDB     = " WHERE ";
+
     public DBManager(Context context) {
         helper = new DBHelper(context);
         db = helper.getWritableDatabase();
@@ -23,8 +26,11 @@ public class DBManager {
      /**
      * add noTimeEventses
      * @param noTimeEvent
+     * @return boolean //false means insert failed ,true means success
      */
-    public void InsertToNTE(NoTimeEvents noTimeEvent){//NTE 意思是No Time Event
+    public boolean InsertToNTE(NoTimeEvent noTimeEvent){//NTE 意思是No Time Event
+        if(IsNTEhave(noTimeEvent))return false;
+        //这些是插入操作
         ContentValues contentValues = new ContentValues();
         contentValues.put(helper.sComplete, noTimeEvent.Completed);
         contentValues.put(helper.sContents, noTimeEvent.Contents);
@@ -32,21 +38,16 @@ public class DBManager {
         contentValues.put(helper.sName,     noTimeEvent.Name);
         contentValues.put(helper.sStartTime,noTimeEvent.StartTime);
         db.insert(helper.NoTimeTableName, helper.sName,contentValues);
-        /*db.execSQL("INSERT INTO " + helper.NoTimeTableName + " VALUES(null, ?, ?, ?, ?, ?)",
-                    new Object[]{
-                            ConvertBoolToInt(noTimeEvent.Completed),
-                            noTimeEvent.Contents,
-                            noTimeEvent.EndTime,
-                            noTimeEvent.Name,
-                            noTimeEvent.StartTime,
-                    });*/
-            ConvertBoolToInt(false);//JUST TEST
+        return true;
     }
     /**
     * add QuickTimeEvent
     * @param quickTimeEvent
+    * @return boolean //false means insert failed ,true means success
     */
     public void InsertToQTE(QuickTimeEvent quickTimeEvent){//QTE:quick time event
+        if(IsQTEhave(quickTimeEvent))return;
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(helper.sClassify, quickTimeEvent.classify);
         contentValues.put(helper.sComplete, quickTimeEvent.completed);
@@ -54,21 +55,15 @@ public class DBManager {
         contentValues.put(helper.sEndTime,  quickTimeEvent.endtime);
         contentValues.put(helper.sImportant,quickTimeEvent.important);
         db.insert(helper.QuickTableName, helper.sContents,contentValues);
-
-            /*db.execSQL("INSERT INTO " + helper.QuickTableName + " VALUES(null, ?, ?, ?, ?, ?)",
-                    new Object[]{
-                            quickTimeEvent.classify,
-                            ConvertBoolToInt(quickTimeEvent.completed),
-                            quickTimeEvent.contents,
-                            quickTimeEvent.endtime,
-                            quickTimeEvent.important,
-                    });*/
     }
     /**
      * add QuickTimeEvent
      * @param planTimeEvent
+     * @return boolean //false means insert failed ,true means success
      */
     public void InsertToPTE(PlanTimeEvent planTimeEvent){//PTE:plan time event
+        if (IsPTEhave(planTimeEvent))return;
+
         ContentValues contentValues = new ContentValues();
         contentValues.put(helper.sClassify, planTimeEvent.classify);
         contentValues.put(helper.sComplete, planTimeEvent.completed);
@@ -79,24 +74,12 @@ public class DBManager {
         contentValues.put(helper.sIsGoodPlan,planTimeEvent.isplangood);
         contentValues.put(helper.sStartTime,planTimeEvent.starttime);
         db.insert(helper.PlanTableName, helper.sContents,contentValues);
-
-            /*db.execSQL("INSERT INTO " + helper.PlanTableName + " VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    new Object[]{
-                            planTimeEvent.classify,
-                            ConvertBoolToInt(planTimeEvent.completed),
-                            planTimeEvent.contents,
-                            planTimeEvent.endtime,
-                            planTimeEvent.frequent,
-                            planTimeEvent.important,
-                            planTimeEvent.isplangood,
-                            planTimeEvent.starttime,
-                    });*/
     }
     /**
      * update noTimeEvent's name
      * @param noTimeEvent
      */
-    public void updateNTEById(NoTimeEvents noTimeEvent) {
+    public void updateNTEById(NoTimeEvent noTimeEvent) {
         ContentValues cv = new ContentValues();
         cv.put(helper.sName,        noTimeEvent.Name);
         cv.put(helper.sContents,    noTimeEvent.Contents);
@@ -138,7 +121,7 @@ public class DBManager {
      * delete old noTimeEvent
      * @param noTimeEvent
      */
-    public void deleteNTEById(NoTimeEvents noTimeEvent) {
+    public void deleteNTEById(NoTimeEvent noTimeEvent) {
         db.delete(helper.NoTimeTableName, "_id = ?", new String[]{String.valueOf(noTimeEvent._id)});
     }
     /**
@@ -159,11 +142,11 @@ public class DBManager {
      * query all noTimeEvents, return list
      * @return List<noTimeEvent>
      */
-    public List<NoTimeEvents> queryNTE() {
-        ArrayList<NoTimeEvents> noTimeEvents = new ArrayList<NoTimeEvents>();
+    public List<NoTimeEvent> queryNTE() {
+        ArrayList<NoTimeEvent> noTimeEvents = new ArrayList<NoTimeEvent>();
         Cursor c = queryTheNTECursor();
         while (c.moveToNext()) {
-            NoTimeEvents noTimeEvent = new NoTimeEvents();
+            NoTimeEvent noTimeEvent = new NoTimeEvent();
             noTimeEvent._id =               c.getInt(c.getColumnIndex(helper.sId));
             noTimeEvent.Name =              c.getString(c.getColumnIndex(helper.sName));
             noTimeEvent.Contents =          c.getString(c.getColumnIndex(helper.sContents));
@@ -246,7 +229,7 @@ public class DBManager {
     public void closeDB() {
         db.close();
     }
-
+    //以下是工具系列
     private boolean ConvertIntToBool(int num){
         if (0==num)return false;
         else return true;
@@ -255,5 +238,31 @@ public class DBManager {
     private int ConvertBoolToInt(boolean bool){
         if(bool)return 1;
         else return 0;
+    }
+
+    private boolean IsNTEhave(NoTimeEvent noTimeEvent){
+        boolean flag=false;
+        Cursor c = db.rawQuery(sSelectAllInDB+helper.NoTimeTableName+sWhereInDB+helper.sContents+"=? and "+helper.sStartTime+"=?",
+                new String[]{noTimeEvent.Contents,String.valueOf(noTimeEvent.StartTime)});
+        flag=c.moveToFirst();
+        return flag;
+    }
+
+    private boolean IsQTEhave(QuickTimeEvent quickTimeEvent){
+        boolean flag=false;
+        Cursor cursor = db.rawQuery(sSelectAllInDB+helper.QuickTableName+sWhereInDB+helper.sContents+"=? and "+helper.sEndTime,
+                new String[]{quickTimeEvent.contents,String.valueOf(quickTimeEvent.endtime)}
+                );
+        flag=cursor.moveToFirst();
+        return flag;
+    }
+
+    private boolean IsPTEhave(PlanTimeEvent planTimeEvent){
+        boolean flag=false;
+        Cursor cursor = db.rawQuery(sSelectAllInDB+helper.PlanTableName+sWhereInDB+helper.sContents+"=? and "+helper.sStartTime,
+                new String[]{planTimeEvent.contents,String.valueOf(planTimeEvent.starttime)}
+                );
+        flag=cursor.moveToFirst();
+        return flag;
     }
 }

@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.HITech.DataOperate.DatabaseTest;
 
 public class MyActivity extends Activity {
@@ -27,14 +26,8 @@ public class MyActivity extends Activity {
         button2.setOnClickListener(new Mybuttonlistener() );
         mTextView = (TextView)findViewById(R.id.textView);
         databaseTest = new DatabaseTest(this);
+
         mTextView.setText(databaseTest.Answer());
-    }
-    private void button1click(View view){
-//            button1.setBackgroundColor(Color.BLUE);
-        Toast.makeText(this, "Button clicked!", Toast.LENGTH_SHORT).show();
-
-//            button2.setVisibility(View.GONE);
-
     }
     class Mybuttonlistener implements OnClickListener {
         @Override

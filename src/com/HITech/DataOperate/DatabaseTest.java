@@ -12,30 +12,30 @@ import java.util.List;
  */
 public class DatabaseTest {
     private DBManager mDBManager;
-    private NoTimeEvents noTimeEvents;
+    private NoTimeEvent noTimeEvent;
     private QuickTimeEvent quickTimeEvent;
     private PlanTimeEvent  planTimeEvent;
     private String answer;
-    private List<NoTimeEvents> noTimeEventses;
+    private List<NoTimeEvent> noTimeEventses;
     private List<QuickTimeEvent> quickTimeEvents;
     private List<PlanTimeEvent> planTimeEvents;
 
     public DatabaseTest(Context context){
         mDBManager = new DBManager(context);
         //增加操作
-        noTimeEvents = new NoTimeEvents("NTE","NTEtest",1010);
+        noTimeEvent = new NoTimeEvent("NTE","NTEtest",1010);
         quickTimeEvent = new QuickTimeEvent(1,2,3,"QTETEST");
         planTimeEvent = new PlanTimeEvent(5,6,7,7,"PTETest",8);
 
-        mDBManager.InsertToNTE(noTimeEvents);
+        mDBManager.InsertToNTE(noTimeEvent);
         mDBManager.InsertToQTE(quickTimeEvent);
         mDBManager.InsertToPTE(planTimeEvent);
 
-        noTimeEvents = new NoTimeEvents("NTE2","NTEtest",1010);
+        noTimeEvent = new NoTimeEvent("NTE2","NTEtest2",1010);
         quickTimeEvent = new QuickTimeEvent(1,2,3,"QTETEST2");
         planTimeEvent = new PlanTimeEvent(5,6,7,7,"PTETest2",8);
 
-        mDBManager.InsertToNTE(noTimeEvents);
+        mDBManager.InsertToNTE(noTimeEvent);
         mDBManager.InsertToQTE(quickTimeEvent);
         mDBManager.InsertToPTE(planTimeEvent);
 
@@ -45,29 +45,29 @@ public class DatabaseTest {
         answer+="this Update Test,Dont panic";
 
         //java 里面貌似想要做些修改操作也只能用这种方式了，暂时想不出更好的方法
-        noTimeEvents = noTimeEventses.get(0);
+        noTimeEvent = noTimeEventses.get(0);
         quickTimeEvent = quickTimeEvents.get(0);
         planTimeEvent = planTimeEvents.get(0);
 
-        noTimeEvents.Completed=true;
-        noTimeEvents.Contents="This filed has been changed";
+        noTimeEvent.Completed=true;
+        noTimeEvent.Contents="This filed has been changed";
         quickTimeEvent.completed=true;
         quickTimeEvent.contents="This filed has been great changed ";
         planTimeEvent.completed=true;
         planTimeEvent.contents="This filed has been great changed";
 
-        mDBManager.updateNTEById(noTimeEvents);
+        mDBManager.updateNTEById(noTimeEvent);
         mDBManager.updateQTEById(quickTimeEvent);
         mDBManager.updatePTEById(planTimeEvent);
 
         AddAnswer();
         //删除操作
         answer+="This is delete test:\n";
-        noTimeEvents = noTimeEventses.get(0);
+        noTimeEvent = noTimeEventses.get(0);
         quickTimeEvent = quickTimeEvents.get(0);
         planTimeEvent = planTimeEvents.get(0);
 
-        mDBManager.deleteNTEById(noTimeEvents);
+        mDBManager.deleteNTEById(noTimeEvent);
         mDBManager.deleteQTEById(quickTimeEvent);
         mDBManager.deletePTEById(planTimeEvent);
 
@@ -78,7 +78,7 @@ public class DatabaseTest {
         noTimeEventses      = mDBManager.queryNTE();
         quickTimeEvents     = mDBManager.queryQTE();
         planTimeEvents      = mDBManager.queryPTE();
-        for(NoTimeEvents noTimeEvents1 : noTimeEventses){
+        for(NoTimeEvent noTimeEvents1 : noTimeEventses){
             answer+=noTimeEvents1._id+"\t"+
                     noTimeEvents1.Name+"\t"+
                     noTimeEvents1.StartTime +"\t"+
