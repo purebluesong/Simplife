@@ -250,7 +250,7 @@ public class DBManager {
 
     private boolean IsQTEhave(QuickTimeEvent quickTimeEvent){
         boolean flag=false;
-        Cursor cursor = db.rawQuery(sSelectAllInDB+helper.QuickTableName+sWhereInDB+helper.sContents+"=? and "+helper.sEndTime,
+        Cursor cursor = db.rawQuery(sSelectAllInDB+helper.QuickTableName+sWhereInDB+helper.sContents+"=? and "+helper.sEndTime+"=?",
                 new String[]{quickTimeEvent.contents,String.valueOf(quickTimeEvent.endtime)}
                 );
         flag=cursor.moveToFirst();
@@ -259,7 +259,7 @@ public class DBManager {
 
     private boolean IsPTEhave(PlanTimeEvent planTimeEvent){
         boolean flag=false;
-        Cursor cursor = db.rawQuery(sSelectAllInDB+helper.PlanTableName+sWhereInDB+helper.sContents+"=? and "+helper.sStartTime,
+        Cursor cursor = db.rawQuery(sSelectAllInDB+helper.PlanTableName+sWhereInDB+helper.sContents+"=? and "+helper.sStartTime+"=?",
                 new String[]{planTimeEvent.contents,String.valueOf(planTimeEvent.starttime)}
                 );
         flag=cursor.moveToFirst();
