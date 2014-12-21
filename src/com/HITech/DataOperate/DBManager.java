@@ -18,6 +18,9 @@ public class DBManager {
 
     private static String sSelectAllInDB = "SELECT * FROM ";
     private static String sWhereInDB     = " WHERE ";
+    private static String sOrderBy       = " ORDER BY ";
+    private static String sASC           = " ASC";
+    private static String sDES           = " DESC";
 
     public DBManager(Context context) {
         helper = new DBHelper(context);
@@ -45,8 +48,8 @@ public class DBManager {
     * @param quickTimeEvent
     * @return boolean //false means insert failed ,true means success
     */
-    public void InsertToQTE(QuickTimeEvent quickTimeEvent){//QTE:quick time event
-        if(IsQTEhave(quickTimeEvent))return;
+    public boolean InsertToQTE(QuickTimeEvent quickTimeEvent){//QTE:quick time event
+        if(IsQTEhave(quickTimeEvent))return false;
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(helper.sClassify, quickTimeEvent.classify);
@@ -55,14 +58,15 @@ public class DBManager {
         contentValues.put(helper.sEndTime,  quickTimeEvent.endtime);
         contentValues.put(helper.sImportant,quickTimeEvent.important);
         db.insert(helper.QuickTableName, helper.sContents,contentValues);
+        return true;
     }
     /**
      * add QuickTimeEvent
      * @param planTimeEvent
      * @return boolean //false means insert failed ,true means success
      */
-    public void InsertToPTE(PlanTimeEvent planTimeEvent){//PTE:plan time event
-        if (IsPTEhave(planTimeEvent))return;
+    public boolean InsertToPTE(PlanTimeEvent planTimeEvent){//PTE:plan time event
+        if (IsPTEhave(planTimeEvent))return false;
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(helper.sClassify, planTimeEvent.classify);
@@ -74,6 +78,7 @@ public class DBManager {
         contentValues.put(helper.sIsGoodPlan,planTimeEvent.isplangood);
         contentValues.put(helper.sStartTime,planTimeEvent.starttime);
         db.insert(helper.PlanTableName, helper.sContents,contentValues);
+        return true;
     }
     /**
      * update noTimeEvent's name
@@ -198,13 +203,12 @@ public class DBManager {
         }
         return planTimeEvents;
     }
-
     /**
      * query all noTimeEvents, return cursor
      * @return  Cursor
      */
     public Cursor queryTheNTECursor() {
-        Cursor c = db.rawQuery("SELECT * FROM "+helper.NoTimeTableName,null);
+        Cursor c = db.rawQuery(sSelectAllInDB+helper.NoTimeTableName+sOrderBy+helper.sStartTime+sASC,null);
         return c;
     }
     /**
@@ -212,7 +216,7 @@ public class DBManager {
      * @return  Cursor
      * */
     public Cursor queryTheQTECursor(){
-        Cursor c = db.rawQuery("SELECT * FROM "+helper.QuickTableName,null);
+        Cursor c = db.rawQuery(sSelectAllInDB+helper.QuickTableName+sOrderBy+helper.sEndTime+sDES,null);
         return c;
     }
     /**
@@ -220,7 +224,7 @@ public class DBManager {
      * @return Cursor
      * */
     public Cursor queryThePTECursor(){
-        Cursor c = db.rawQuery("SELECT * FROM "+helper.PlanTableName,null);
+        Cursor c = db.rawQuery(sSelectAllInDB+helper.PlanTableName+sOrderBy+helper.sStartTime+sDES,null);
         return c;
     }
     /**
