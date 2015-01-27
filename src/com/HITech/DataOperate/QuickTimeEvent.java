@@ -11,9 +11,9 @@ public class QuickTimeEvent {
     public String contents;
     public boolean completed;
 
-    QuickTimeEvent(){}
+    public QuickTimeEvent(){}
 
-    QuickTimeEvent(int endtime,int classify,int important,String contents){
+    public QuickTimeEvent(int endtime,int classify,int important,String contents){
         this.classify   =   classify;
         this.endtime    =   endtime;
         this.important  =   important;

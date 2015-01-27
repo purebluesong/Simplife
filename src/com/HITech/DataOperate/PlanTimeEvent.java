@@ -14,9 +14,9 @@ public class PlanTimeEvent {
     public String contents;
     public boolean completed;
 
-    PlanTimeEvent(){}
+    public PlanTimeEvent(){}
 
-    PlanTimeEvent(int starttime,int endtime,int classify,int important,String contents,int frequent){
+    public PlanTimeEvent(int starttime,int endtime,int classify,int important,String contents,int frequent){
         this.classify   =   classify;
         this.endtime    =   endtime;
         this.important  =   important;

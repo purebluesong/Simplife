@@ -16,7 +16,7 @@ public class DatabaseTest {
     private QuickTimeEvent quickTimeEvent;
     private PlanTimeEvent  planTimeEvent;
     private String answer;
-    private List<NoTimeEvent> noTimeEventses;
+    private List<NoTimeEvent> noTimeEvents;
     private List<QuickTimeEvent> quickTimeEvents;
     private List<PlanTimeEvent> planTimeEvents;
 
@@ -45,7 +45,7 @@ public class DatabaseTest {
         answer+="this Update Test,Dont panic";
 
         //java 里面貌似想要做些修改操作也只能用这种方式了，暂时想不出更好的方法
-        noTimeEvent = noTimeEventses.get(0);
+        noTimeEvent = noTimeEvents.get(0);
         quickTimeEvent = quickTimeEvents.get(0);
         planTimeEvent = planTimeEvents.get(0);
 
@@ -63,7 +63,7 @@ public class DatabaseTest {
         AddAnswer();
         //删除操作
         answer+="This is delete test:\n";
-        noTimeEvent = noTimeEventses.get(0);
+        noTimeEvent = noTimeEvents.get(0);
         quickTimeEvent = quickTimeEvents.get(0);
         planTimeEvent = planTimeEvents.get(0);
 
@@ -75,10 +75,10 @@ public class DatabaseTest {
     }
 
     private void AddAnswer(){
-        noTimeEventses      = mDBManager.queryNTE();
+        noTimeEvents = mDBManager.queryNTE();
         quickTimeEvents     = mDBManager.queryQTE();
         planTimeEvents      = mDBManager.queryPTE();
-        for(NoTimeEvent noTimeEvents1 : noTimeEventses){
+        for(NoTimeEvent noTimeEvents1 : noTimeEvents){
             answer+=noTimeEvents1._id+"\t"+
                     noTimeEvents1.Name+"\t"+
                     noTimeEvents1.StartTime +"\t"+
