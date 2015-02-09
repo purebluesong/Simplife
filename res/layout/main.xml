@@ -13,12 +13,12 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="TestButton1"
-            android:id="@+id/button"/>
+            android:id="@+id/main_button1"/>
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="TestButton2"
-            android:id="@+id/button2"/>
+            android:id="@+id/main_button2"/>
     <ScrollView
         android:layout_width = "fill_parent"
         android:layout_height="wrap_content">

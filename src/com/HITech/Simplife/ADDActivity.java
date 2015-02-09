@@ -1,6 +1,7 @@
 package com.HITech.Simplife;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,6 @@ public class ADDActivity extends Activity {
     private AddButtonListener addButtonListener ;
 
     public ADDActivity(){
-
     }
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -43,18 +43,32 @@ public class ADDActivity extends Activity {
 
 
     private class AddButtonListener implements View.OnClickListener {
+
+        Intent intent = new Intent();//下面的activity切换之用
         @Override
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btnAddAdd:
                     if(isInputRight()){
-                        addQuickEvent();
+                        if(addQuickEvent()){
+                            //TellUser("Add Event Success");
+                            intent.setClass(getApplicationContext(),MyActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                            TellUser("Add Event Failed");
                     }else{
-                        Toast.makeText(getApplicationContext(), editTextEndtime.getText().toString(),Toast.LENGTH_SHORT).show();
+                        TellUser("Input data format is wrong");
                     }
+                    //activity切换回主activity
+
                     break;
                 case R.id.btnCancelAdd:
-                    setContentView(R.layout.main);
+                    //activity切换回主activity
+                    intent.setClass(getApplicationContext(),MyActivity.class);
+                    startActivity(intent);
+                    finish();
                     break;
                 default:
             }
@@ -70,8 +84,7 @@ public class ADDActivity extends Activity {
                     && Byte.parseByte(editTextClassify.getText().toString())>0 && Byte.parseByte(editTextClassify.getText().toString())<30)
                 answer = true;
         }catch (Exception e){
-            Toast.makeText(getApplicationContext(), e.toString(),
-                    Toast.LENGTH_SHORT).show();
+            TellUser(e.toString());
         }
         return answer;
     }
@@ -84,5 +97,9 @@ public class ADDActivity extends Activity {
                 editTextContents.getText().toString()
         );
         return dbManager.InsertToQTE(quickTimeEvent);
+    }
+
+    private void TellUser(String msg){
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG);
     }
 }
