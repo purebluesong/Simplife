@@ -4,30 +4,71 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:weightSum="1">
-    <TextView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="MyActivity"
-            />
-    <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="TestButton1"
-            android:id="@+id/main_button1"/>
-    <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="TestButton2"
-            android:id="@+id/main_button2"/>
-    <ScrollView
-        android:layout_width = "fill_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="fill_parent" android:weightSum="1">
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="TestButton2"
+                android:id="@+id/main_button2"/>
+        <ScrollView
+            android:layout_width = "fill_parent"
+            android:layout_height="137dp" android:layout_x="5dp"
+            android:layout_y="50dp">
+        </ScrollView>
         <TextView
-            android:layout_width="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textSize="30dp"/>
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="the New Text"
-            android:id="@+id/textView"
-            android:layout_weight="0.67"/>
-    </ScrollView>
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
+    <TabHost
+            android:layout_width="match_parent"
+            android:layout_height="58dp" android:id="@+id/tabHost">
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal">
+            <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+            </TabWidget>
+            <FrameLayout
+                    android:id="@android:id/tabcontent"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" android:layout_gravity="left">
+                    <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ready for tab"
+                            android:id="@+id/button"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" android:layout_gravity="center_vertical">
+                </LinearLayout>
+                <LinearLayout
+                        android:id="@+id/linearLayout3"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:orientation="vertical" android:layout_gravity="right">
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </LinearLayout>
 

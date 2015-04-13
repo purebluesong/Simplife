@@ -3,12 +3,14 @@ package com.HITech.Simplife;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.HITech.DataOperate.DatabaseTest;
+import com.HITech.GlobalResource;
+import com.HITech.Views.TimeAx;
 
 public class MyActivity extends Activity {
     /**
@@ -18,6 +20,7 @@ public class MyActivity extends Activity {
     Button button2;
     private DatabaseTest databaseTest;
     private TextView mTextView;
+    private TimeAx timeAx;
 //    private ADDActivity addActivity;
 
     private Mybuttonlistener mButtonListener;
@@ -27,13 +30,18 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         mButtonListener = new Mybuttonlistener();
-        button1=(Button)findViewById(R.id.main_button1);
+        GlobalResource.ScreenWidth=getScreenWidth();
+
+    //    button1=(Button)findViewById(R.id.main_button1);
         button2=(Button)findViewById(R.id.main_button2);
-        button1.setOnClickListener(mButtonListener);
+        timeAx = new TimeAx(this);
+
+      //  button1.setOnClickListener(mButtonListener);
         button2.setOnClickListener(mButtonListener);
         mTextView = (TextView)findViewById(R.id.textView);
         databaseTest = new DatabaseTest(this);
         mTextView.setText(databaseTest.Answer());
+
     }
     @Override
     public void onStart(){
@@ -45,9 +53,7 @@ public class MyActivity extends Activity {
         public void onClick(View v) {
             switch (v.getId())
             {
-                case R.id.main_button1:
-                    Toast.makeText(getApplicationContext(), "activity", Toast.LENGTH_SHORT).show();
-                    break;
+             //
                 case R.id.main_button2:
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), ADDActivity.class);
@@ -56,5 +62,11 @@ public class MyActivity extends Activity {
                     break;
             }
         }
+    }
+
+    public int getScreenWidth(){
+        DisplayMetrics metric = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metric);
+        return metric.widthPixels;     // 屏幕宽度（像素）
     }
 }
