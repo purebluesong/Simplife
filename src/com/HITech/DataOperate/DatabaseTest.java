@@ -16,7 +16,7 @@ public class DatabaseTest {
     private QuickTimeEvent quickTimeEvent;
     private PlanTimeEvent  planTimeEvent;
     private String answer;
-    private List<NoTimeEvent> noTimeEventses;
+    private List<NoTimeEvent> noTimeEvents;
     private List<QuickTimeEvent> quickTimeEvents;
     private List<PlanTimeEvent> planTimeEvents;
 
@@ -41,29 +41,29 @@ public class DatabaseTest {
 
         answer ="";
         answer+="QueryAll:\n";
-        AddAnswer();
+        answer+=AddAnswer();
         answer+="this Update Test,Dont panic";
 
         //java 里面貌似想要做些修改操作也只能用这种方式了，暂时想不出更好的方法
-        noTimeEvent = noTimeEventses.get(0);
+        noTimeEvent = noTimeEvents.get(0);
         quickTimeEvent = quickTimeEvents.get(0);
         planTimeEvent = planTimeEvents.get(0);
 
         noTimeEvent.Completed=true;
         noTimeEvent.Contents="This filed has been changed";
         quickTimeEvent.completed=true;
-        quickTimeEvent.contents="This filed has been great changed ";
+        quickTimeEvent.contents="This filed has been changed";
         planTimeEvent.completed=true;
-        planTimeEvent.contents="This filed has been great changed";
+        planTimeEvent.contents="This filed has been changed";
 
         mDBManager.updateNTEById(noTimeEvent);
         mDBManager.updateQTEById(quickTimeEvent);
         mDBManager.updatePTEById(planTimeEvent);
 
-        AddAnswer();
+        answer+=AddAnswer();
         //删除操作
         answer+="This is delete test:\n";
-        noTimeEvent = noTimeEventses.get(0);
+        noTimeEvent = noTimeEvents.get(0);
         quickTimeEvent = quickTimeEvents.get(0);
         planTimeEvent = planTimeEvents.get(0);
 
@@ -71,15 +71,16 @@ public class DatabaseTest {
         mDBManager.deleteQTEById(quickTimeEvent);
         mDBManager.deletePTEById(planTimeEvent);
 
-        AddAnswer();
+        answer+=AddAnswer();
     }
 
-    private void AddAnswer(){
-        noTimeEventses      = mDBManager.queryNTE();
+    public String AddAnswer(){
+        String Queryanswer = "";
+        noTimeEvents = mDBManager.queryNTE();
         quickTimeEvents     = mDBManager.queryQTE();
         planTimeEvents      = mDBManager.queryPTE();
-        for(NoTimeEvent noTimeEvents1 : noTimeEventses){
-            answer+=noTimeEvents1._id+"\t"+
+        for(NoTimeEvent noTimeEvents1 : noTimeEvents){
+            Queryanswer+=noTimeEvents1._id+"\t"+
                     noTimeEvents1.Name+"\t"+
                     noTimeEvents1.StartTime +"\t"+
                     noTimeEvents1.Completed+"\t"+
@@ -87,7 +88,7 @@ public class DatabaseTest {
                     noTimeEvents1.EndTime +"\n";
         }
         for(QuickTimeEvent quickTimeEvent1 : quickTimeEvents){
-            answer+=quickTimeEvent1._id+"\t"+
+            Queryanswer+=quickTimeEvent1._id+"\t"+
                     quickTimeEvent1.contents+"\t"+
                     quickTimeEvent1.completed+"\t"+
                     quickTimeEvent1.classify+"\t"+
@@ -95,7 +96,7 @@ public class DatabaseTest {
                     quickTimeEvent1.important+"\n";
         }
         for(PlanTimeEvent planTimeEvent1 :planTimeEvents){
-            answer+=planTimeEvent1._id+"\t"+
+            Queryanswer+=planTimeEvent1._id+"\t"+
                     planTimeEvent1.isplangood+"\t"+
                     planTimeEvent1.frequent+"\t"+
                     planTimeEvent1.contents+"\t"+
@@ -105,6 +106,7 @@ public class DatabaseTest {
                     planTimeEvent1.endtime+"\t"+
                     planTimeEvent1.important+"\n";
         }
+        return Queryanswer;
     }
     public String Answer(){
         return answer;
