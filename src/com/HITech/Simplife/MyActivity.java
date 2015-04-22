@@ -16,32 +16,27 @@ public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
-    Button button1;
-    Button button2;
+    private Button button1;
+    private Button button2;
+    private Button tabButton1;
+    private Button tabButton2;
     private DatabaseTest databaseTest;
     private TextView mTextView;
     private TimeAx timeAx;
 //    private ADDActivity addActivity;
 
-    private Mybuttonlistener mButtonListener;
-    private int mCurrentX=0,mCurrentY=0;//TextView左上角的像素位置
+    private Mybuttonlistener buttonListener;
+    private int CurrentX=0,CurrentY=0;//TextView左上角的像素位置
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        mButtonListener = new Mybuttonlistener();
-        GlobalResource.ScreenWidth=getScreenWidth();
-
-    //    button1=(Button)findViewById(R.id.main_button1);
-        button2=(Button)findViewById(R.id.main_button2);
+        initialScreen();
         timeAx = new TimeAx(this);
-
-      //  button1.setOnClickListener(mButtonListener);
-        button2.setOnClickListener(mButtonListener);
-        mTextView = (TextView)findViewById(R.id.textView);
+        buttonListener = new Mybuttonlistener();
         databaseTest = new DatabaseTest(this);
         mTextView.setText(databaseTest.Answer());
-
+        regeisterTouchListener();
     }
     @Override
     public void onStart(){
@@ -53,8 +48,11 @@ public class MyActivity extends Activity {
         public void onClick(View v) {
             switch (v.getId())
             {
-             //
+                case R.id.main_tab_button_1:
+                    break;
                 case R.id.main_button2:
+                    break;
+                case R.id.main_tab_button_2:
                     Intent intent = new Intent();
                     intent.setClass(getApplicationContext(), ADDActivity.class);
                     startActivity(intent);
@@ -62,6 +60,20 @@ public class MyActivity extends Activity {
                     break;
             }
         }
+
+    }
+
+    private void initialScreen(){
+        GlobalResource.ScreenWidth=getScreenWidth();
+        button2=(Button)findViewById(R.id.main_button2);
+        tabButton1=(Button)findViewById(R.id.main_tab_button_1);
+        tabButton2=(Button)findViewById(R.id.main_tab_button_2);
+        mTextView = (TextView)findViewById(R.id.textView);
+    }
+
+    private void regeisterTouchListener(){
+        button2.setOnClickListener(buttonListener);
+        tabButton1.setOnClickListener(buttonListener);
     }
 
     public int getScreenWidth(){

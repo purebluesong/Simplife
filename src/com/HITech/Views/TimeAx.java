@@ -28,6 +28,7 @@ public class TimeAx extends View {
         this.pointRightDown=pointRightDown;
         pointCircleCenter.x=(pointLeftUp.x+pointRightDown.y)/2;
         pointCircleCenter.y=(pointLeftUp.y+pointRightDown.y)/2;
+
     }
 
     public TimeAx(Context context,AttributeSet attributeSet){
@@ -47,11 +48,33 @@ public class TimeAx extends View {
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
 
+
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(pointCircleCenter.x,pointCircleCenter.y,radius,paint);
         paint.setColor(Color.GREEN);
         canvas.drawText("Already for time scroll",pointCircleCenter.x+20,pointCircleCenter.y+10,paint);
     }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+    @Override
+    public void layout(int l, int t, int r, int b) {
+        super.layout(l, t, r, b);
+    }
+
 
 }
