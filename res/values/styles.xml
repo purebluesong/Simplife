@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="main_tab_button">
+        <item name="android:background">#ffaa66cc</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">52dip</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">#ffbb77dd</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:paddingBottom">2.0dip</item>
+        <item name="android:paddingTop">2.0dip</item>
+    </style>
+</resources>

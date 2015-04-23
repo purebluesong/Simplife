@@ -3,78 +3,72 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
+              android:layout_gravity="fill_vertical"
               android:weightSum="1">
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:weightSum="1">
-        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="TestButton2"
-                android:id="@+id/main_button2"/>
-        <ScrollView
-            android:layout_width = "fill_parent"
-            android:layout_height="137dp" android:layout_x="5dp"
-            android:layout_y="50dp">
-            <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
-        </ScrollView>
-
-    </LinearLayout>
-
-    <TabHost
-            android:layout_width="match_parent"
-            android:layout_height="58dp" android:id="@+id/main_tabHost">
-    </TabHost>
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical" android:background="@android:color/holo_red_light"
+            android:baselineAligned="false">
+        <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="TestButton2"
+                android:id="@+id/main_button2" android:background="@android:color/holo_blue_bright"/>
+        <ScrollView
+                android:layout_width = "fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_y="50dp" android:background="@android:color/holo_blue_light">
+            <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:text="Large Text"
+                    android:id="@+id/textView"
+                    />
+        </ScrollView>
         <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-        </TabWidget>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@android:color/holo_green_dark"
+                android:visibility="gone"
+                />
         <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-            <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" android:layout_gravity="left">
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="Ready for tab"
-                        android:id="@+id/main_tab_button_1"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:id="@+id/linearLayout2"
+                android:layout_height="0dp">
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/main_tab_text1"/>
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/main_tab_text2"/>
+            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/main_tab_text3"/>
+        </FrameLayout>
+        <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <RadioGroup
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" android:layout_gravity="center_vertical">
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="Ready for tab"
-                        android:id="@+id/main_tab_button_2"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:id="@+id/linearLayout3"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:orientation="vertical" android:layout_gravity="right">
-                <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:text="Ready for tab"
-                        android:id="@+id/main_tab_button_3"/>
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="horizontal"
+                    >
+                <RadioButton
+                        android:layout_weight="1.0"
+                        android:drawableTop="@drawable/ic_launcher"
+                        style="@style/main_tab_button"
+                        android:text="music"/>
+                <RadioButton
+                        android:layout_weight="1.0"
+                        android:drawableTop="@drawable/ic_launcher"
+                        style="@style/main_tab_button"
+                        android:text="music"/>
+                <RadioButton
+                        android:layout_weight="1.0"
+                        android:drawableTop="@drawable/ic_launcher"
+                        style="@style/main_tab_button"
+                        android:text="music"/>
+            </RadioGroup>
         </FrameLayout>
     </LinearLayout>
+    <TabHost
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/main_tabHost">
+    </TabHost>
+
 </LinearLayout>
 
