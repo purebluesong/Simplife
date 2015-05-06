@@ -9,5 +9,6 @@
         <item name="android:layout_weight">1.0</item>
         <item name="android:paddingBottom">2.0dip</item>
         <item name="android:paddingTop">2.0dip</item>
+        <item name="android:gravity">center_horizontal</item>
     </style>
 </resources>

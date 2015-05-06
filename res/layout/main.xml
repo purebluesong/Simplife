@@ -5,10 +5,15 @@
               android:layout_height="fill_parent"
               android:layout_gravity="fill_vertical"
               android:weightSum="1">
+     <TabHost
+             android:layout_width="fill_parent"
+             android:layout_height="fill_parent"
+             android:id="@+id/main_tabHost">
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" android:background="@android:color/holo_red_light"
+            android:orientation="vertical"
+            android:background="@android:color/holo_red_light"
             android:baselineAligned="false">
         <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="TestButton2"
                 android:id="@+id/main_button2" android:background="@android:color/holo_blue_bright"/>
@@ -23,40 +28,42 @@
                     android:id="@+id/textView"
                     />
         </ScrollView>
+
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0"/>
         <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@android:color/holo_green_dark"
+                android:layout_weight="0.0"
                 android:visibility="gone"
                 />
-        <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="fill_parent"
-                android:layout_height="0dp">
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/main_tab_text1"/>
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/main_tab_text2"/>
-            <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/main_tab_text3"/>
-        </FrameLayout>
         <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
             <RadioGroup
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:orientation="horizontal"
+                    android:id="@+id/main_tab_radiogroup"
                     >
                 <RadioButton
+                        android:id="@+id/main_tab_button1"
+                        android:layout_weight="1.0"
+                        android:drawableTop="@drawable/ic_launcher"
+                        style="@style/main_tab_button"
+                        android:checked="true"
+                        android:text="music"/>
+                <RadioButton
+                        android:id="@+id/main_tab_button2"
                         android:layout_weight="1.0"
                         android:drawableTop="@drawable/ic_launcher"
                         style="@style/main_tab_button"
                         android:text="music"/>
                 <RadioButton
-                        android:layout_weight="1.0"
-                        android:drawableTop="@drawable/ic_launcher"
-                        style="@style/main_tab_button"
-                        android:text="music"/>
-                <RadioButton
+                        android:id="@+id/main_tab_button3"
                         android:layout_weight="1.0"
                         android:drawableTop="@drawable/ic_launcher"
                         style="@style/main_tab_button"
@@ -64,11 +71,6 @@
             </RadioGroup>
         </FrameLayout>
     </LinearLayout>
-    <TabHost
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/main_tabHost">
     </TabHost>
-
 </LinearLayout>
 

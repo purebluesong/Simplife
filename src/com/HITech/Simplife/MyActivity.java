@@ -6,6 +6,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 import com.HITech.DataOperate.DatabaseTest;
@@ -22,6 +23,7 @@ public class MyActivity extends Activity {
     private TimeAx timeAx;
     private TabHost tabHost;
     private ADDActivity addActivity;
+    private RadioGroup radioGroup;
 
     private Mybuttonlistener buttonListener;
     private int CurrentX=0,CurrentY=0;//TextView左上角的像素位置
@@ -55,9 +57,10 @@ public class MyActivity extends Activity {
         button2=(Button)findViewById(R.id.main_button2);
         tabHost = (TabHost)findViewById(R.id.main_tabHost);
         tabHost.setup();
-        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("tab1").setContent(R.id.main_tab_text1));
-        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("tab2").setContent(R.id.main_tab_text2));
-        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("tab3").setContent(R.id.main_tab_text3));
+        tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("tab1").setContent(R.id.main_tab_button1));
+        tabHost.addTab(tabHost.newTabSpec("tab2").setIndicator("tab2").setContent(R.id.main_tab_button2));
+        tabHost.addTab(tabHost.newTabSpec("tab3").setIndicator("tab3").setContent(R.id.main_tab_button3));
+        radioGroup = (RadioGroup)findViewById(R.id.main_tab_radiogroup);
         mTextView = (TextView)findViewById(R.id.textView);
     }
 
